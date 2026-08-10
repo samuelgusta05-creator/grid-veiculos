@@ -7,9 +7,9 @@
     "price": 89000,
     "description": "SUV top de linha, rodas exclusivas, revisado.",
     "image": "/assets/estoque/vw-tcross-2020.jpg",
-    "status": "vendido",
-    "soldAt": "2026-08-10T21:13:35.203Z",
-    "soldPrice": 89000,
+    "status": "disponivel",
+    "soldAt": null,
+    "soldPrice": null,
     "createdAt": "2026-08-10T00:00:00.000Z"
   },
   {
