@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "213a0bac-0a98-48d2-97a8-35d0984be2bd",
+    "name": "Cliente Teste",
+    "phone": "(11) 90000-0000",
+    "email": "",
+    "notes": "teste automatizado",
+    "createdAt": "2026-08-10T21:15:12.730Z"
+  }
+]
