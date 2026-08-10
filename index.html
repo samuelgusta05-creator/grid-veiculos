@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grid Veículos | Qualidade que move você</title>
+<link rel="icon" type="image/png" href="assets/logo-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#E10600;
+  --silver:#C0C0C0;
+  --dark:#1A1A1A;
+  --black:#000000;
+  --off-white:#f4f4f4;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Montserrat',sans-serif;
+  background:var(--black);
+  color:var(--off-white);
+  line-height:1.5;
+}
+h1,h2,h3,.brand{font-family:'Montserrat',sans-serif;font-weight:800;letter-spacing:0;}
+.rating-score{font-family:'Montserrat',sans-serif;font-weight:800;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.container{max-width:1180px;margin:0 auto;padding:0 24px;}
+.accent{color:var(--red);}
+
+/* Header */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,0.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid #2a2a2a;
+}
+.nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:10px 24px;max-width:1180px;margin:0 auto;}
+.nav-wrap img{height:44px;width:auto;}
+nav ul{display:flex;gap:32px;list-style:none;}
+nav a{font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:0.5px;transition:color .2s;}
+nav a:hover{color:var(--red);}
+.nav-cta{
+  background:var(--red);color:#fff;padding:10px 20px;border-radius:4px;
+  font-weight:700;font-size:14px;text-transform:uppercase;
+  border:1px solid var(--red);transition:.2s;
+}
+.nav-cta:hover{background:transparent;color:var(--red);}
+.burger{display:none;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;}
+
+/* Hero */
+.hero{
+  position:relative;
+  min-height:600px;
+  display:flex;align-items:center;
+  background:linear-gradient(120deg, rgba(0,0,0,0.88) 30%, rgba(30,0,0,0.55) 100%), url('assets/storefront.png') center 20%/cover no-repeat;
+}
+.hero-content{max-width:620px;padding:80px 0;}
+.hero-content .eyebrow{
+  color:var(--red);font-weight:700;letter-spacing:3px;text-transform:uppercase;font-size:13px;margin-bottom:14px;display:block;
+}
+.hero-content h1{
+  font-size:64px;line-height:1;color:#fff;margin-bottom:18px;
+}
+.hero-content h1 span{color:var(--red);}
+.hero-content p{color:#c9c9c9;font-size:17px;margin-bottom:32px;max-width:480px;}
+.btn-row{display:flex;gap:16px;flex-wrap:wrap;}
+.btn{
+  padding:14px 30px;border-radius:4px;font-weight:700;font-size:14px;
+  text-transform:uppercase;letter-spacing:0.5px;transition:.2s;border:2px solid transparent;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary{background:var(--red);color:#fff;border-color:var(--red);}
+.btn-primary:hover{background:transparent;color:var(--red);}
+.btn-outline{border-color:var(--silver);color:var(--silver);}
+.btn-outline:hover{background:var(--silver);color:#111;}
+
+/* Trust bar */
+.trust-bar{
+  background:var(--dark);border-top:1px solid #2a2a2a;border-bottom:1px solid #2a2a2a;
+  padding:22px 0;
+}
+.trust-bar .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.trust-item{display:flex;align-items:center;gap:10px;font-size:14px;color:#ddd;font-weight:600;}
+.trust-item svg{width:22px;height:22px;flex-shrink:0;stroke:var(--red);}
+
+/* Section titles */
+.section{padding:80px 0;}
+.section-head{text-align:center;margin-bottom:48px;}
+.section-head .tag{color:var(--red);font-weight:700;letter-spacing:3px;text-transform:uppercase;font-size:13px;}
+.section-head h2{font-size:42px;color:#fff;margin-top:8px;}
+.section-head p{color:#999;max-width:520px;margin:14px auto 0;font-size:15px;}
+
+/* Categories */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;}
+.cat-card{
+  background:var(--dark);border:1px solid #2a2a2a;border-radius:8px;
+  padding:32px 20px;text-align:center;transition:.25s;cursor:pointer;
+}
+.cat-card:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 10px 30px rgba(225,6,0,0.15);}
+.cat-card svg{width:46px;height:46px;stroke:var(--silver);margin:0 auto 16px;}
+.cat-card:hover svg{stroke:var(--red);}
+.cat-card span{font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:0.5px;}
+
+/* Showroom */
+.stock-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;margin-bottom:48px;
+}
+.stock-card{
+  position:relative;border-radius:10px;overflow:hidden;aspect-ratio:4/3;cursor:pointer;
+  background:var(--dark);border:1px solid #2a2a2a;
+}
+.stock-card img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .4s;
+}
+.stock-card:hover img{transform:scale(1.12) rotate(-0.5deg);filter:brightness(0.55);}
+.stock-card .badge-year{
+  position:absolute;top:12px;left:12px;background:var(--red);color:#fff;font-weight:800;
+  font-size:12px;padding:5px 10px;border-radius:4px;letter-spacing:0.5px;
+  transform:translateY(0);transition:transform .4s;
+}
+.stock-card:hover .badge-year{transform:translateY(-60px);}
+.stock-overlay{
+  position:absolute;left:0;right:0;bottom:0;padding:16px 18px 18px;
+  background:linear-gradient(to top, rgba(0,0,0,0.92) 30%, rgba(0,0,0,0.1));
+  transform:translateY(52%);transition:transform .45s cubic-bezier(.2,.8,.2,1);
+}
+.stock-card:hover .stock-overlay{transform:translateY(0);}
+.stock-overlay h4{font-size:17px;color:#fff;margin-bottom:2px;font-weight:800;}
+.stock-overlay .year-tag{font-size:12px;color:var(--silver);margin-bottom:10px;display:block;}
+.stock-overlay p{
+  font-size:12.5px;color:#bbb;max-height:0;opacity:0;overflow:hidden;
+  transition:max-height .4s ease,opacity .3s ease .05s;margin-bottom:0;
+}
+.stock-card:hover .stock-overlay p{max-height:60px;opacity:1;margin-bottom:12px;}
+.stock-overlay .mini-btn{
+  display:inline-block;font-size:12px;font-weight:700;text-transform:uppercase;
+  color:var(--red);border:1px solid var(--red);padding:7px 14px;border-radius:4px;
+  opacity:0;transform:translateY(6px);transition:opacity .3s ease .1s,transform .3s ease .1s,background .2s,color .2s;
+}
+.stock-card:hover .stock-overlay .mini-btn{opacity:1;transform:translateY(0);}
+.stock-overlay .mini-btn:hover{background:var(--red);color:#fff;}
+
+/* Lightbox */
+.lightbox{
+  position:fixed;inset:0;background:rgba(0,0,0,0.94);z-index:500;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s ease;
+}
+.lightbox.open{opacity:1;pointer-events:auto;}
+.lightbox-stage{position:relative;max-width:90vw;max-height:82vh;}
+.lightbox-stage img{
+  max-width:90vw;max-height:82vh;display:block;border-radius:8px;
+  opacity:0;transform:scale(0.96);transition:opacity .35s ease,transform .35s ease;
+}
+.lightbox-stage img.show{opacity:1;transform:scale(1);}
+.lightbox-caption{
+  position:absolute;left:0;right:0;bottom:-46px;text-align:center;color:#ddd;font-size:14px;
+}
+.lightbox-caption b{color:#fff;}
+.lightbox-close, .lightbox-nav{
+  position:absolute;background:rgba(255,255,255,0.08);border:1px solid #333;color:#fff;
+  width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:20px;transition:.2s;
+}
+.lightbox-close:hover, .lightbox-nav:hover{background:var(--red);border-color:var(--red);}
+.lightbox-close{top:-56px;right:0;}
+.lightbox-nav.prev{left:-64px;top:50%;transform:translateY(-50%);}
+.lightbox-nav.next{right:-64px;top:50%;transform:translateY(-50%);}
+@media (max-width:860px){
+  .lightbox-nav.prev{left:8px;}
+  .lightbox-nav.next{right:8px;}
+  .lightbox-close{top:8px;right:8px;background:rgba(0,0,0,0.6);}
+}
+
+/* Estoque CTA */
+.stock-cta{
+  background:linear-gradient(135deg, var(--dark) 0%, #260000 100%);
+  border:1px solid #2a2a2a;border-radius:10px;
+  padding:56px 40px;text-align:center;
+}
+.stock-cta h3{font-size:36px;color:#fff;margin-bottom:12px;}
+.stock-cta p{color:#bbb;max-width:520px;margin:0 auto 28px;font-size:15px;}
+
+/* Why choose */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+.why-list{display:flex;flex-direction:column;gap:22px;}
+.why-item{display:flex;gap:16px;align-items:flex-start;}
+.why-item .icon{
+  width:48px;height:48px;flex-shrink:0;border-radius:8px;background:var(--dark);
+  border:1px solid #2a2a2a;display:flex;align-items:center;justify-content:center;
+}
+.why-item .icon svg{width:24px;height:24px;stroke:var(--red);}
+.why-item h4{font-size:16px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;color:#fff;}
+.why-item p{color:#999;font-size:14px;}
+.why-photo img{border-radius:10px;border:1px solid #2a2a2a;}
+
+/* Testimonials */
+.rating-summary{
+  display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:44px;flex-wrap:wrap;
+}
+.rating-score{font-family:'Bebas Neue',sans-serif;font-size:56px;color:#fff;line-height:1;}
+.stars{color:var(--red);font-size:20px;letter-spacing:2px;}
+.rating-summary .count{color:#999;font-size:14px;}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
+.testi-card{
+  background:var(--dark);border:1px solid #2a2a2a;border-radius:8px;padding:28px;
+}
+.testi-card .stars{margin-bottom:14px;display:block;}
+.testi-card p{color:#ccc;font-size:14px;margin-bottom:20px;min-height:70px;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-avatar{
+  width:38px;height:38px;border-radius:50%;background:var(--red);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;
+}
+.testi-author .name{font-weight:700;font-size:14px;color:#fff;}
+.testi-author .time{font-size:12px;color:#888;}
+
+/* Location / Contact */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:10px;overflow:hidden;border:1px solid #2a2a2a;}
+.contact-info{background:var(--dark);padding:48px;}
+.contact-info h3{font-size:32px;color:#fff;margin-bottom:8px;}
+.contact-info .status{
+  display:inline-flex;align-items:center;gap:6px;color:#4ade80;font-size:13px;font-weight:700;
+  margin-bottom:28px;text-transform:uppercase;
+}
+.contact-info .status::before{content:'';width:8px;height:8px;border-radius:50%;background:#4ade80;}
+.info-row{display:flex;gap:14px;align-items:flex-start;margin-bottom:20px;}
+.info-row svg{width:20px;height:20px;stroke:var(--red);flex-shrink:0;margin-top:2px;}
+.info-row .label{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:0.5px;}
+.info-row .val{font-size:15px;color:#eee;font-weight:600;}
+.map-embed iframe{width:100%;height:100%;min-height:420px;border:0;filter:grayscale(0.3) contrast(1.1);}
+
+/* Footer */
+footer{background:var(--dark);border-top:1px solid #2a2a2a;padding:56px 0 24px;}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;margin-bottom:40px;}
+footer img.flogo{height:40px;margin-bottom:14px;}
+footer p.desc{color:#888;font-size:13px;max-width:260px;}
+.footer-col h5{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;color:#fff;}
+.footer-col a{display:block;color:#999;font-size:13px;margin-bottom:10px;transition:.2s;}
+.footer-col a:hover{color:var(--red);}
+.social-row{display:flex;gap:12px;margin-top:6px;}
+.social-row a{
+  width:36px;height:36px;border-radius:50%;border:1px solid #333;
+  display:flex;align-items:center;justify-content:center;
+}
+.social-row a:hover{border-color:var(--red);background:var(--red);}
+.social-row svg{width:16px;height:16px;stroke:#ccc;}
+.footer-bottom{
+  border-top:1px solid #2a2a2a;padding-top:22px;display:flex;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;color:#777;font-size:12px;
+}
+
+/* Whatsapp float */
+.wa-float{
+  position:fixed;bottom:24px;right:24px;z-index:200;
+  width:58px;height:58px;border-radius:50%;background:#25D366;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,0.4);
+  transition:.2s;
+}
+.wa-float:hover{transform:scale(1.08);}
+.wa-float svg{width:28px;height:28px;fill:#fff;}
+
+@media (max-width:900px){
+  .why-grid,.contact-wrap{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .hero-content h1{font-size:44px;}
+}
+@media (max-width:720px){
+  nav ul{position:fixed;top:64px;left:0;right:0;background:var(--dark);flex-direction:column;padding:20px 24px;gap:18px;display:none;border-bottom:1px solid #2a2a2a;}
+  nav ul.open{display:flex;}
+  .burger{display:block;}
+  .nav-cta{display:none;}
+  .section{padding:56px 0;}
+  .footer-grid{grid-template-columns:1fr;}
+  .hero-content h1{font-size:36px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <a href="#top"><img src="assets/logo-white.png" alt="Grid Veículos"></a>
+    <nav>
+      <ul id="navList">
+        <li><a href="#top">Início</a></li>
+        <li><a href="#estoque">Estoque</a></li>
+        <li><a href="#diferenciais">Diferenciais</a></li>
+        <li><a href="#avaliacoes">Avaliações</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <a class="nav-cta" href="https://wa.me/5511940899323" target="_blank" rel="noopener">Fale no WhatsApp</a>
+    <button class="burger" id="burgerBtn" aria-label="Menu">&#9776;</button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="container">
+    <div class="hero-content">
+      <span class="eyebrow">Há mais de 20 anos no mercado</span>
+      <h1>Qualidade que <span>move</span> você</h1>
+      <p>Revenda de veículos novos e seminovos em São Paulo. Atendimento honesto, preço justo e carros revisados para você comprar com confiança.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://wa.me/5511940899323" target="_blank" rel="noopener">Ver estoque no WhatsApp</a>
+        <a class="btn btn-outline" href="#contato">Nossa localização</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="container">
+    <div class="trust-item">
+      <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+      Mais de 20 anos no mercado
+    </div>
+    <div class="trust-item">
+      <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m11.48 3.499 1.5 3.03 3.35.487a.75.75 0 0 1 .416 1.28l-2.424 2.363.572 3.336a.75.75 0 0 1-1.088.79L12 13.187l-2.994 1.6a.75.75 0 0 1-1.088-.79l.572-3.337-2.424-2.363a.75.75 0 0 1 .416-1.28l3.35-.486 1.5-3.03a.75.75 0 0 1 1.342 0Z"/></svg>
+      4,4 de avaliação no Google
+    </div>
+    <div class="trust-item">
+      <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/></svg>
+      Novos e seminovos
+    </div>
+    <div class="trust-item">
+      <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.97a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 .75.75V21M3 9l9-6 9 6v10.5a.75.75 0 0 1-.75.75H3.75a.75.75 0 0 1-.75-.75V9Z"/></svg>
+      Revenda de confiança
+    </div>
+  </div>
+</div>
+
+<section class="section" id="estoque">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">Estoque</span>
+      <h2>O que você procura?</h2>
+      <p>Trabalhamos com diversas categorias de veículos novos e seminovos, sempre revisados e prontos para rodar.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.5 4.5 9a2 2 0 0 1 1.9-1.5h11.2A2 2 0 0 1 19.5 9L21 13.5M3 13.5v4a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-4M3 13.5h18M6.5 17H6M18 17h-.5"/><circle cx="7" cy="15" r="1.2"/><circle cx="17" cy="15" r="1.2"/></svg>
+        <span>SUV</span>
+      </div>
+      <div class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.5 14 4 9.8A2 2 0 0 1 5.9 8.5h12.2A2 2 0 0 1 20 9.8L21.5 14M2.5 14v3.2a1 1 0 0 0 1 1h1.2a1 1 0 0 0 1-1V16h10.6v1.2a1 1 0 0 0 1 1H18.5a1 1 0 0 0 1-1V14M2.5 14h19"/><circle cx="7" cy="16" r="1"/><circle cx="17" cy="16" r="1"/></svg>
+        <span>Sedan</span>
+      </div>
+      <div class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15 5 10.5c.5-1.2 1-2 2.5-2h9c1.5 0 2 .8 2.5 2L21 15M3 15v2.5a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V15M3 15h18M9 8.5 8 10.5m7-2 1 2"/><circle cx="7" cy="16.5" r="1"/><circle cx="17" cy="16.5" r="1"/></svg>
+        <span>Hatch</span>
+      </div>
+      <div class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16V9a1 1 0 0 1 1-1h5v8M9 8h4.5a2 2 0 0 1 1.8 1.1L17 12h3.5a.5.5 0 0 1 .5.5V16M3 16h1M13 16h5.5M20.5 16H21v-4h-4"/><circle cx="7" cy="17" r="1.3"/><circle cx="18" cy="17" r="1.3"/></svg>
+        <span>Pick-up</span>
+      </div>
+      <div class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v4m0 0-2.5 2.5M12 7l2.5 2.5M4.5 12H3m3-4.5L4.5 6M18 7.5 19.5 6M21 12h-1.5M6 16.5 4.5 18M18 16.5l1.5 1.5M9 21h6"/><circle cx="12" cy="13" r="4"/></svg>
+        <span>Novos</span>
+      </div>
+      <div class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0-6.36-2.64M12 21v-4M8 21h8"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/></svg>
+        <span>Seminovos</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">Showroom</span>
+      <h2>Destaques do estoque</h2>
+      <p>Passe o mouse sobre o carro pra ver mais. Clique na foto pra abrir em tela cheia.</p>
+    </div>
+    <div class="stock-grid" id="stockGrid"></div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="stock-cta">
+      <h3>Estoque atualizado direto no WhatsApp e Instagram</h3>
+      <p>Nossos veículos disponíveis mudam toda semana. Fale com a nossa equipe para receber fotos, valores e condições atualizadas na hora.</p>
+      <div class="btn-row" style="justify-content:center;">
+        <a class="btn btn-primary" href="https://wa.me/5511940899323" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+        <a class="btn btn-outline" href="https://instagram.com" target="_blank" rel="noopener">Ver no Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="diferenciais">
+  <div class="container">
+    <div class="why-grid">
+      <div>
+        <div class="section-head" style="text-align:left;margin-bottom:32px;">
+          <span class="tag">Por que a Grid</span>
+          <h2>Qualidade que se prova na estrada</h2>
+        </div>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="icon"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m6-3v6.75c0 5.25-3.75 8.25-9 9.75-5.25-1.5-9-4.5-9-9.75V6.75L12 3l9 3.75Z"/></svg></div>
+            <div><h4>Confiança</h4><p>Mais de 20 anos de história e centenas de clientes satisfeitos em São Paulo.</p></div>
+          </div>
+          <div class="why-item">
+            <div class="icon"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H8.497m5.007 0a7.5 7.5 0 1 0-5.007 0m5.007 0h-5.007"/></svg></div>
+            <div><h4>Qualidade</h4><p>Veículos revisados e selecionados a dedo, com procedência garantida.</p></div>
+          </div>
+          <div class="why-item">
+            <div class="icon"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg></div>
+            <div><h4>Compromisso</h4><p>Negociação transparente, do primeiro contato até a entrega das chaves.</p></div>
+          </div>
+          <div class="why-item">
+            <div class="icon"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9.75 12 1.5 1.5 3-3.5"/></svg></div>
+            <div><h4>Performance</h4><p>Carros prontos para rodar com segurança e economia desde o primeiro dia.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="why-photo">
+        <img src="assets/storefront.png" alt="Fachada Grid Veículos">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="avaliacoes" style="background:var(--dark);">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">Avaliações</span>
+      <h2>O que dizem sobre a Grid</h2>
+    </div>
+    <div class="rating-summary">
+      <span class="rating-score">4,4</span>
+      <div>
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+        <div class="count">35 avaliações no Google</div>
+      </div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <p>"O atendimento do vendedor Rafael e Sr. Marcos foram essenciais para a concretização do negócio. O carro que eu adquiri está impecável e com preço justo. Recomendo!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MD</div>
+          <div><div class="name">Marcos Diniz</div><div class="time">Avaliação no Google</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <p>"Atendimento excelente, vendedor Rafael está de parabéns, muito atencioso."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JR</div>
+          <div><div class="name">Jailton Reis</div><div class="time">Avaliação no Google</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <p>"Ótimos profissionais e preços justos!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">RF</div>
+          <div><div class="name">Rafael Luis Froge</div><div class="time">Avaliação no Google</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contato">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">Contato</span>
+      <h2>Venha nos visitar</h2>
+    </div>
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <h3>Grid Veículos</h3>
+        <span class="status">Aberto agora · Fecha às 19:00</span>
+        <div class="info-row">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25s-7.5-4.108-7.5-11.25a7.5 7.5 0 1 1 15 0Z"/></svg>
+          <div><div class="label">Endereço</div><div class="val">Avenida Marechal Tito, 3100 A — Itaim Paulista, São Paulo - SP, 08160-495</div></div>
+        </div>
+        <div class="info-row">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a1.5 1.5 0 0 0 1.5-1.5v-2.379a1.5 1.5 0 0 0-1.06-1.435l-3.516-1.055a1.5 1.5 0 0 0-1.517.39l-.899.9a10.4 10.4 0 0 1-5.61-5.61l.9-.899a1.5 1.5 0 0 0 .389-1.517L7.564 3.31A1.5 1.5 0 0 0 6.129 2.25H3.75a1.5 1.5 0 0 0-1.5 1.5Z"/></svg>
+          <div><div class="label">Telefone</div><div class="val">(11) 2567-2163</div></div>
+        </div>
+        <div class="info-row">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v7.142a1.75 1.75 0 0 1-1.75 1.75H4a1.75 1.75 0 0 1-1.75-1.75v-7.142c0-.97.616-1.813 1.5-2.097M20.25 8.511 12 13.5 3.75 8.511M20.25 8.511V6.75A1.75 1.75 0 0 0 18.5 5h-13A1.75 1.75 0 0 0 3.75 6.75v1.761"/></svg>
+          <div><div class="label">WhatsApp</div><div class="val">(11) 94190-9323</div></div>
+        </div>
+        <div class="info-row">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+          <div><div class="label">Horário</div><div class="val">Seg a Sáb · 08:00 às 19:00</div></div>
+        </div>
+        <div class="btn-row" style="margin-top:30px;">
+          <a class="btn btn-primary" href="https://wa.me/5511940899323" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+        </div>
+      </div>
+      <div class="map-embed">
+        <iframe src="https://www.google.com/maps?q=Grid+Ve%C3%ADculos+Avenida+Marechal+Tito+3100+A+Itaim+Paulista+S%C3%A3o+Paulo&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img class="flogo" src="assets/logo-white.png" alt="Grid Veículos">
+        <p class="desc">Revenda de veículos novos e seminovos há mais de 20 anos em São Paulo. Qualidade que move você.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 9h2.5V6h-2.5c-2 0-3.5 1.5-3.5 3.5V12H8v3h2.5v6h3v-6H16l.5-3h-3V9.7c0-.4.3-.7.5-.7Z"/></svg></a>
+          <a href="https://wa.me/5511940899323" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M20 12a8 8 0 1 1-15.3-3.3L3 21l6.5-1.6A8 8 0 0 1 20 12Z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Navegação</h5>
+        <a href="#top">Início</a>
+        <a href="#estoque">Estoque</a>
+        <a href="#diferenciais">Diferenciais</a>
+        <a href="#avaliacoes">Avaliações</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contato</h5>
+        <a href="tel:+551125672163">(11) 2567-2163</a>
+        <a href="https://wa.me/5511940899323">(11) 94190-9323</a>
+        <a href="#contato">Ver no mapa</a>
+      </div>
+      <div class="footer-col">
+        <h5>Endereço</h5>
+        <a href="#contato">Av. Marechal Tito, 3100 A</a>
+        <a href="#contato">Itaim Paulista, São Paulo - SP</a>
+        <a href="#contato">08160-495</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Grid Veículos. Todos os direitos reservados.</span>
+      <span>Qualidade que move você.</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5511940899323" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.36 5.13L2 22l5.11-1.44a9.87 9.87 0 0 0 4.93 1.32h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.79 14.08c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.03.09-1.66-.1-.38-.12-.87-.28-1.5-.55-2.64-1.14-4.36-3.8-4.5-3.98-.13-.18-1.08-1.44-1.08-2.75s.68-1.94.93-2.2c.24-.26.53-.33.7-.33h.51c.16 0 .38-.06.6.45.24.56.8 1.93.87 2.07.07.14.11.3.02.48-.09.18-.14.29-.27.45-.14.16-.29.35-.41.47-.14.14-.28.29-.12.57.16.28.72 1.2 1.56 1.94 1.07.95 1.97 1.25 2.25 1.39.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.18-.28.36-.23.6-.14.24.09 1.55.73 1.81.87.27.14.44.2.5.32.07.12.07.66-.17 1.34Z"/></svg>
+</a>
+
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-stage">
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-caption"><b id="lightboxName"></b> — <span id="lightboxYear"></span></div>
+    <div class="lightbox-close" id="lightboxClose">&#10005;</div>
+    <div class="lightbox-nav prev" id="lightboxPrev">&#10094;</div>
+    <div class="lightbox-nav next" id="lightboxNext">&#10095;</div>
+  </div>
+</div>
+
+<script>
+document.getElementById('burgerBtn').addEventListener('click', function(){
+  document.getElementById('navList').classList.toggle('open');
+});
+document.querySelectorAll('nav a').forEach(function(a){
+  a.addEventListener('click', function(){ document.getElementById('navList').classList.remove('open'); });
+});
+
+var stock = [
+  { img:'assets/estoque/nissan-kicks-2022.jpg', name:'Nissan Kicks', year:'2022', desc:'SUV completo, único dono, revisado.' },
+  { img:'assets/estoque/chevrolet-onix-2019.jpg', name:'Chevrolet Onix', year:'2019', desc:'Hatch econômico, baixa quilometragem.' },
+  { img:'assets/estoque/renault-kwid-2024.jpg', name:'Renault Kwid', year:'2024', desc:'Seminovo, garantia de fábrica.' },
+  { img:'assets/estoque/vw-tcross-2020.jpg', name:'Volkswagen T-Cross', year:'2020', desc:'SUV top de linha, rodas exclusivas.' },
+  { img:'assets/estoque/vw-polo-2024.jpg', name:'Volkswagen Polo', year:'2024', desc:'Zero detalhe, pronto pra rodar.' },
+  { img:'assets/estoque/toyota-corolla-2019.jpg', name:'Toyota Corolla', year:'2019', desc:'Sedan confiável, interior impecável.' },
+  { img:'assets/estoque/jeep-renegade-2016.jpg', name:'Jeep Renegade', year:'2016', desc:'SUV robusto, todo revisado.' },
+  { img:'assets/estoque/vw-gol-2018.jpg', name:'Volkswagen Gol', year:'2018', desc:'Completo, ótimo custo-benefício.' }
+];
+
+var grid = document.getElementById('stockGrid');
+stock.forEach(function(car, i){
+  var card = document.createElement('div');
+  card.className = 'stock-card';
+  card.innerHTML =
+    '<span class="badge-year">' + car.year + '</span>' +
+    '<img src="' + car.img + '" alt="' + car.name + ' ' + car.year + '" loading="lazy">' +
+    '<div class="stock-overlay">' +
+      '<h4>' + car.name + '</h4>' +
+      '<span class="year-tag">Ano ' + car.year + '</span>' +
+      '<p>' + car.desc + '</p>' +
+      '<span class="mini-btn">Ver foto</span>' +
+    '</div>';
+  card.addEventListener('click', function(){ openLightbox(i); });
+  grid.appendChild(card);
+});
+
+var lightbox = document.getElementById('lightbox');
+var lbImg = document.getElementById('lightboxImg');
+var lbName = document.getElementById('lightboxName');
+var lbYear = document.getElementById('lightboxYear');
+var current = 0;
+
+function renderLightbox(){
+  lbImg.classList.remove('show');
+  setTimeout(function(){
+    lbImg.src = stock[current].img;
+    lbName.textContent = stock[current].name;
+    lbYear.textContent = 'Ano ' + stock[current].year;
+    lbImg.onload = function(){ lbImg.classList.add('show'); };
+  }, 180);
+}
+function openLightbox(i){
+  current = i;
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderLightbox();
+}
+function closeLightbox(){
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', function(e){ if(e.target === lightbox) closeLightbox(); });
+document.getElementById('lightboxPrev').addEventListener('click', function(){ current = (current - 1 + stock.length) % stock.length; renderLightbox(); });
+document.getElementById('lightboxNext').addEventListener('click', function(){ current = (current + 1) % stock.length; renderLightbox(); });
+document.addEventListener('keydown', function(e){
+  if(!lightbox.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft') { current = (current - 1 + stock.length) % stock.length; renderLightbox(); }
+  if(e.key === 'ArrowRight') { current = (current + 1) % stock.length; renderLightbox(); }
+});
+</script>
+
+</body>
+</html>
