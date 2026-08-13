@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 const LINKS = [
@@ -11,6 +12,7 @@ const LINKS = [
 export default function AdminShell({ title, children }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [open, setOpen] = useState(false);
 
   async function logout() {
     await fetch("/api/admin/logout", { method: "POST" });
@@ -20,10 +22,13 @@ export default function AdminShell({ title, children }) {
 
   return (
     <div className="admin-shell">
-      <aside className="admin-sidebar">
+      <aside className={`admin-sidebar ${open ? "open" : ""}`}>
         <img src="/assets/logo-white.png" alt="Grid Veículos" />
+        <button className="admin-menu-btn" aria-label="Menu" onClick={() => setOpen((o) => !o)}>
+          {open ? "✕" : "☰"}
+        </button>
         {LINKS.map((l) => (
-          <a key={l.href} href={l.href} className={pathname === l.href ? "active" : ""}>
+          <a key={l.href} href={l.href} className={pathname === l.href ? "active" : ""} onClick={() => setOpen(false)}>
             {l.label}
           </a>
         ))}
